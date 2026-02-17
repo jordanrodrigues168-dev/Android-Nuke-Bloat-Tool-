@@ -1,0 +1,81 @@
+# -- Easy Functions
+uim() {
+  echo "[Main] $1"
+}
+
+uis() {
+  echo "[Shizuku]" $1
+}
+
+rish() {
+   bash rish -c "$1"
+}
+
+uii() {
+   echo "[Info] $1"
+}
+# -- Connect to Shizuku
+cd rishTools
+clear
+uim "Connecting to Shizuku..."
+if ! rish > /dev/null 2>&1; then
+uim "Couldnt connect to Shizuku!"
+exit
+fi
+uim "Successfully connected to Shizuku!"
+uis "Shizuku is ready for commands"
+sleep 0.5
+uim "Please choose one of the following options:"
+sleep 0.5
+uii "1) Debloat your device"
+sleep 0.5
+uii "2) Disable Phantom Process Killer"
+sleep 0.5
+uii "3) Tweak UI Settings"
+sleep 0.5
+uim "Check your device info as listed below"
+# -- Variables
+deviceModel=$(rish "getprop ro.product.model")
+deviceName=$(rish "getprop ro.product.marketname")
+deviceCPU=$(rish "getprop ro.board.platform")
+deviceABI=$(rish "getprop ro.product.cpu.abi")
+deviceMPP=$(rish "device_config get activity_manager max_phantom_processes")
+phantomMonitor=$(rish "settings get global settings_enable_monitor_phantom_procs")
+syncStatus=$(rish "settings get global device_config_sync_disabled")
+# -- Show the Info
+echo "-----------------------------------------------------"
+uii "Device Model: $deviceModel"
+sleep 0.5
+uii "Device Name: $deviceName"
+sleep 0.5
+uii "Device CPU: $deviceCPU"
+sleep 0.5
+uii "Device ABI: $deviceABI"
+sleep 0.5
+uii "Device Max Phantom Processes: $deviceMPP"
+sleep 0.5
+uii "Device Phantom Process Monitor: $phantomMonitor"
+uii "Device Sync Status: $syncStatus"
+echo "-----------------------------------------------------"
+read -p "[Options] Enter option: " option
+# -- Source the function file
+cd ..
+source util-functions
+# -- Option 2
+case $option in
+1)
+debloatDevice
+;;
+2)
+    disablePPK
+    ;;
+3)
+tweakUI
+;;
+4)
+uim "Not yet bro"
+;;
+*)
+uim "Invalid Option!"
+;;
+esac

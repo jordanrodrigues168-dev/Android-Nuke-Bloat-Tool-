@@ -1,0 +1,86 @@
+# --- MIUI Analytics & Ads ---
+com.miui.analytics
+com.miui.msa.global
+com.miui.systemadsconf
+com.xiaomi.joyose
+com.xiaomi.mipicks
+com.miui.vsimcore
+
+# --- Xiaomi Framework Bloat ---
+com.xiaomi.payment
+com.xiaomi.midrop
+com.mi.health
+com.mi.icu
+com.mi.webkit.core
+com.miui.hybrid
+com.miui.hybrid.accessory
+com.miui.phrase
+
+# --- Browser & Search ---
+com.mi.globalbrowser
+com.android.browser
+com.miui.videoplayer
+com.miui.player
+
+# --- Daemon Services ---
+com.miui.daemon
+com.miui.yellowpage
+com.xiaomi.scanner
+com.xiaomi.calendar
+com.miui.notes
+
+# --- Google Duplicate Bloat ---
+com.google.android.apps.photos
+com.google.android.videos
+com.google.android.music
+com.google.android.apps.tachyon
+com.google.android.projection.gearhead
+
+# --- Social & Tracking ---
+com.facebook.services
+com.facebook.system
+com.facebook.appmanager
+
+# --- Samsung Bloat ---
+com.samsung.android.bixby.agent
+com.samsung.android.bixby.wakeup
+com.samsung.android.app.spage
+com.samsung.android.kidsinstaller
+com.samsung.android.app.routines
+com.samsung.android.wellbeing
+com.samsung.android.da.daagent
+com.samsung.android.service.livedrawing
+com.sec.android.app.sbrowser
+com.samsung.android.messaging
+com.sec.android.app.voicenote
+
+# --- Samsung Dupilicates ---
+com.samsung.android.app.calendar
+com.samsung.android.app.notes
+com.samsung.android.app.watchmanagerstub
+com.samsung.android.app.social
+com.sec.android.app.myfiles
+
+# --- Motorola / Lenovo ---
+com.motorola.ccc.ota
+com.motorola.genie
+com.motorola.moto
+com.motorola.userprivacy
+com.motorola.brazil
+com.lenovo.lsf.device
+
+# --- Realme / Oppo / Vivo ---
+com.heytap.browser
+com.heytap.cloud
+com.heytap.usercenter
+com.oppo.market
+com.coloros.athena
+com.vivo.browser
+com.vivo.appstore
+
+# --- Carrier Bloat ---
+com.vzw.hsm.android.as
+com.vzw.apnlib
+com.att.dh
+com.att.myWireless
+com.tmobile.pr.mytmobile

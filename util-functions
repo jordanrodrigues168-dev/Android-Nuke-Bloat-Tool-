@@ -1,0 +1,93 @@
+# -- Option 1
+debloatDevice() {
+  local listFile="packages.list"
+  local found=0
+  local skipped=0
+
+  if [ ! -f "$listFile" ]; then
+    uim "Error: $listFile not found!"
+    return 1
+  fi
+
+  uim "Initiating Global Purge... Standby."
+
+  while IFS= read -r pkg || [ -n "$pkg" ]; do
+    [[ "$pkg" =~ ^#.*$ ]] || [ -z "$pkg" ] && continue
+    pkg=$(echo "$pkg" | tr -d '[:space:]' | tr -d '\r')
+
+    # -- Check if the package is actually installed before trying to disable
+    # -- This keeps the output clean
+    if rish "pm list packages" | grep -q "$pkg"; then
+      if rish "pm disable-user --user 0 $pkg" > /dev/null 2>&1; then
+        uis "Nuked: $pkg"
+        ((found++))
+      fi
+    else
+      ((skipped++))
+    fi
+  done < "$listFile"
+
+  uim "Purge complete!"
+  uii "Total Nuked: $found | Total Ignored (Not on device): $skipped"
+}
+
+
+# -- Option 2
+disablePPK() {
+  cd rishTools
+  uim "Disabling Phantom Process Killer..."
+  
+  # -- Disable the Monitor 
+  # -- This stops the system from tracking child processes entirely
+  if rish "settings put global settings_enable_monitor_phantom_procs false"; then
+    uis "Phantom Monitor disabled."
+  else
+    uii "Failed to disable Monitor (might not be supported on this Android version)."
+  fi
+
+  # -- Max out the Process Limit
+  # -- Sets the limit to the maximum 32-bit integer
+  if rish "device_config put activity_manager max_phantom_processes 2147483647"; then
+    uis "Process limit set to maximum (2147483647)."
+  else
+    uii "Failed to update process limit."
+  fi
+
+  # -- Disable Sync
+  # -- Prevents Android from resetting these values via server-side sync.
+  if rish "settings put global device_config_sync_disabled 1"; then
+    rish "device_config set_sync_disabled_for_tests persistent"
+    uis "Settings synchronization blocked."
+  else
+    uii "Failed to disable config sync."
+  fi
+
+  uim "Phantom Process Killer has been neutralized!"
+}
+
+# -- Option 3
+tweakUI() {
+  uim "Applying UI Tweaks for Maximum Speed..."
+
+  # -- Animation Speed (The 'Instant' Feel)
+  # -- 0.5 is the sweet spot. 0 is 'Instant' but can look choppy
+  uis "Setting animation scales to 0.5x..."
+  rish "settings put global window_animation_scale 0.5"
+  rish "settings put global transition_animation_scale 0.5"
+  rish "settings put global animator_duration_scale 0.5"
+
+  # -- Force High Refresh Rate (Peak Fluidity)
+  # -- This tries to force the display to its max hz (e.g., 120Hz)
+  uis "Attempting to lock maximum refresh rate..."
+  rish "settings put system min_refresh_rate 120.0"
+  rish "settings put system peak_refresh_rate 120.0"
+
+  # -- Gesture Navigation Sensitivity
+  # -- Makes 'Back' gestures more responsive
+  uis "Optimizing gesture sensitivity..."
+  rish "settings put secure back_gesture_inset_scale_left 1.0"
+  rish "settings put secure back_gesture_inset_scale_right 1.0"
+
+
+  uim "UI Tweaks applied! You might need to lock/unlock to see changes."
+}
