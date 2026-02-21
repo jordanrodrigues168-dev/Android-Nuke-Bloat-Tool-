@@ -20,9 +20,9 @@ bash shizuku-utils
 • Don't use **sh**, the **script** uses source and **sh** can't **use** it
 
 ## 🛡️ Safety Guarantee
-• This tool is **non-destructive** It uses the **pm disable-user command**
+• This tool is **non-destructive** as it uses the **pm disable-user command**
 
-• No **system files** are deleted**
+• No **system files** are **deleted**
 
 • No **factory reset** is **required** to revert changes
 
